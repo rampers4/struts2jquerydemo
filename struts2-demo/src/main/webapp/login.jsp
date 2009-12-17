@@ -6,8 +6,26 @@
       	</h3>
       	<div class="dbx-content">
       	  <s:if test="logined">
-      	   <table class=""></table>
+      	   <div>wellcome <s:property value="svcUser.employeeId"/></div>
+      	   <div>expireDate <s:property value="svcUser.expireDate"/></div>
+      	   <div><s:a name="logout" action="logout">logout</s:a></div>
       	  </s:if>
-      	<s:else>login dailog</s:else>
+      	<s:else>
+      	 <table>
+		<tr><td align="left" style="font:bold;color:red"> 
+	            <s:fielderror/> 	 	
+                <s:actionerror/>
+                <s:actionmessage/></td></tr>
+     	 </table>
+     	 <s:form action="login" validate="true" >
+      	  <table class="tbl">
+      	   <tr><td class="label">employeeId</td>
+      	   <td class="inp"><s:textfield  name="username" size="10" maxlength="12"></s:textfield></td></tr>
+      	   <tr><td class="label">password</td>
+      	   <td class="inp"><s:password  name="password" size="10" maxlength="10"> </s:password> </td></tr>
+      	   <tr><td colspan="2"><s:submit value="dologin" ></s:submit> </td></tr>
+      	  </table>
+      	  </s:form>
+      	</s:else>
       	</div>
 </div>

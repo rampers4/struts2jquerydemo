@@ -1,12 +1,16 @@
 package com.samtech.action;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.csair.domains.etdcs.SvcUserAccount;
+import com.opensymphony.xwork2.ActionContext;
 import com.samtech.exception.LoginException;
+import com.samtech.hibernate3.UserAccountServiceInf;
 
 public class LoginAction extends BaseDaoAction<SvcUserAccount> {
 
@@ -19,18 +23,28 @@ public class LoginAction extends BaseDaoAction<SvcUserAccount> {
 	private SvcUserAccount user = null;
 	private boolean logined = false;
 	private String password, username;
+	private UserAccountServiceInf userAccountService;
 
 	public String doLoginAction() {
 		try {
+			Map<String, List<String>> fieldErrors = this.getFieldErrors();
+			if(fieldErrors!=null && !fieldErrors.isEmpty()){
+				return SUCCESS;
+			}
 			user = logined(this.getUsername(), this.getPassword());
+			Map<String, Object> smap = ActionContext.getContext().getSession();
 			HttpSession session = this.getServletRequest().getSession();
 			if (session == null)
 				session = this.getServletRequest().getSession(true);
 			session.setAttribute(LOGIN_KEY, Boolean.TRUE);
 			session.setAttribute(USER_INFO_KEY, user);
+			if(smap!=null){
+				smap.put(LOGIN_KEY, Boolean.TRUE);
+				smap.put(USER_INFO_KEY, user);
+			}
 		} catch (LoginException e) {
 			this.addActionError(e.getMessage());
-			return INPUT;
+			return SUCCESS;
 		}
 
 		return SUCCESS;
@@ -41,6 +55,13 @@ public class LoginAction extends BaseDaoAction<SvcUserAccount> {
 		HttpSession session = this.getServletRequest().getSession();
 		logined = false;
 		user = null;
+		Map<String, Object> smap = ActionContext.getContext().getSession();
+		
+		
+		if(smap!=null){
+			smap.remove(LOGIN_KEY);
+			smap.remove(USER_INFO_KEY);
+		}
 		if (session != null) {
 			session.removeAttribute(LOGIN_KEY);
 			session.removeAttribute(USER_INFO_KEY);
@@ -51,8 +72,12 @@ public class LoginAction extends BaseDaoAction<SvcUserAccount> {
 	}
 
 	private SvcUserAccount logined(String u, String p) throws LoginException {
-
-		return null;
+		try {
+			return this.userAccountService.login(u, p);
+		} catch (javax.security.auth.login.LoginException e) {
+			throw new LoginException(e.getMessage());
+		}
+		
 	}
 
 	@Override
@@ -140,6 +165,19 @@ public class LoginAction extends BaseDaoAction<SvcUserAccount> {
 				user = (SvcUserAccount) session.getAttribute(USER_INFO_KEY);
 			}
 		}
+		Map<String, Object> smap = ActionContext.getContext().getSession();
+		if(smap!=null){
+			Object o=smap.get(LOGIN_KEY);
+			if (o != null && ((Boolean) o).booleanValue()) {
+				logined = true;
+				user = (SvcUserAccount)smap.get(USER_INFO_KEY);
+			}
+
+		}
+	}
+	
+	public void setUserAccountService( UserAccountServiceInf service){
+		this.userAccountService=service;
 	}
 
 }

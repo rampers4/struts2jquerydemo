@@ -13,16 +13,19 @@ img {
    border:none;
 }
 
-tbl{
+.tbl{
  border: none;
  padding: 2px;
   	
 }
-.tbl label{
+.tbl .label{
 	 text-align:right;
 	 padding: 3px 2px 2px 2px;
 	 background-color:lightblue;  
 	}
+.tbl .inp{
+	text-align: left;
+}	
 /* templates/default/style_fallback.css  */
 /* This is the templates/default/style_fallback.css file.
    It emits CSS rules that all templates should have.

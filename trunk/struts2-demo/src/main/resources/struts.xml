@@ -4,71 +4,92 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
     "http://struts.apache.org/dtds/struts-2.1.dtd">
 
-<!-- START SNIPPET: xworkSample -->
+	<!-- START SNIPPET: xworkSample -->
 <struts>
 
-    <!-- Some or all of these can be flipped to true for debugging -->
-    <constant name="struts.i18n.reload" value="false" />
-    <constant name="struts.i18n.encoding" value="UTF-8"/>
-    <constant name="struts.devMode" value="true" />
-    <constant name="struts.configuration.xml.reload" value="false" />
-    <constant name="struts.custom.i18n.resources" value="globalMessages" />
-    <constant name="struts.action.extension" value="action,," />
-    <package name="default"  extends="struts-default">
- <default-action-ref name="struts2_demo" />
-        <action name="struts2_demo">
-            <result>/demo.jsp</result>
-        </action>
- 
- <action name="date" class="com.samtech.action.DateAction" method="browse">
-            <result name="success">/date.jsp</result>
-        </action>
- <action name="etairportlist" class="com.samtech.action.SearchEtAirportAction" method="etAirportList">
-            <result name="success">/etairportlist.jsp</result>
-            <result name="input">/etairportlist.jsp</result>
- </action>
- <action name="deleteetairport" class="com.samtech.action.SearchEtAirportAction" method="doDelete">
-   <result name="success">/etairportlist.jsp</result>
-   <result name="input">/etairportlist.jsp</result>
- </action>	
-	<action name="setupModify" class="com.samtech.action.SearchEtAirportAction" method="setupModify">
-            <result >/editEtAirport.jsp</result>
-	</action> 
-	 <action name="saveOrUpdateEtAirport" class="com.samtech.action.SearchEtAirportAction" method="saveOrUpdate">
-            <result name="success">/editEtAirport.jsp</result>
-            <result name="input">/editEtAirport.jsp</result>
-	</action>
-	
-	<action name="gogtlist" class="com.samtech.action.SearchEtAirportAction">
-	  <result name="success">/gtairportlist.jsp</result>
-	</action>
-	<action name="gmesalist" class="com.samtech.action.SearchGmesaAirportAction">
-	  <result name="success">/jmesaairportlist.jsp</result>
-	</action>
-	<action name="pgairport" class="com.samtech.action.SearchGmesaAirportAction" method="paging">
-		<result name="pgresult" type="stream">
-		 <param name="contentType">txt/html</param>
-		 <param name="inputName">pgInputStream</param>
-		 <param name="bufferSize">1024</param>
-		</result>
-	</action>
-	<action name="slidertablelist" class="com.samtech.action.TravelersFilterAction">
-	  <result name="success">/sliderAndjmesalist.jsp</result>
-	</action>
-	<action name="pgtraveler" class="com.samtech.action.TravelersFilterAction" method="paging">
-		<result name="pgresult" type="stream">
-		 <param name="contentType">txt/html</param>
-		 <param name="inputName">pgInputStream</param>
-		 <param name="bufferSize">1024</param>
-		</result>
-	</action>
- </package> 
- <package name="gtexample" extends="json-default">
- <action name="etload" class="com.samtech.action.GtGridAction" method="load">
-		<result type="json" ></result>
-	</action> 
-	<action name="jsontable" class="com.samtech.action.JqueryGridAction">
-	<result type="json" ></result>
-	</action>     
- </package>      
+	<!-- Some or all of these can be flipped to true for debugging -->
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.configuration.xml.reload" value="false" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages" />
+	<constant name="struts.action.extension" value="action,," />
+	<package name="default" extends="struts-default">
+		<default-action-ref name="struts2_demo" />
+		<action name="struts2_demo">
+			<result>/demo.jsp</result>
+		</action>
+
+		<action name="date" class="com.samtech.action.DateAction"
+			method="browse">
+			<result name="success">/date.jsp</result>
+		</action>
+		<action name="logout" class="com.samtech.action.LoginAction"
+			method="doLogoutAction">
+			<result name="success" type="redirect">/demo.jsp</result>
+		</action>
+		<action name="login" class="com.samtech.action.LoginAction"
+			method="doLoginAction">
+			<result name="success" >/demo.jsp</result>
+			<result name="input">/demo.jsp</result>
+		</action>
+		<action name="loginInfo" class="com.samtech.action.LoginAction">
+			<result name="success">/login.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		<action name="etairportlist" class="com.samtech.action.SearchEtAirportAction"
+			method="etAirportList">
+			<result name="success">/etairportlist.jsp</result>
+			<result name="input">/etairportlist.jsp</result>
+		</action>
+		<action name="deleteetairport" class="com.samtech.action.SearchEtAirportAction"
+			method="doDelete">
+			<result name="success">/etairportlist.jsp</result>
+			<result name="input">/etairportlist.jsp</result>
+		</action>
+		<action name="setupModify" class="com.samtech.action.SearchEtAirportAction"
+			method="setupModify">
+			<result>/editEtAirport.jsp</result>
+		</action>
+		<action name="saveOrUpdateEtAirport" class="com.samtech.action.SearchEtAirportAction"
+			method="saveOrUpdate">
+			<result name="success">/editEtAirport.jsp</result>
+			<result name="input">/editEtAirport.jsp</result>
+		</action>
+
+		<action name="gogtlist" class="com.samtech.action.SearchEtAirportAction">
+			<result name="success">/gtairportlist.jsp</result>
+		</action>
+		<action name="gmesalist" class="com.samtech.action.SearchGmesaAirportAction">
+			<result name="success">/jmesaairportlist.jsp</result>
+		</action>
+		<action name="pgairport" class="com.samtech.action.SearchGmesaAirportAction"
+			method="paging">
+			<result name="pgresult" type="stream">
+				<param name="contentType">txt/html</param>
+				<param name="inputName">pgInputStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="slidertablelist" class="com.samtech.action.TravelersFilterAction">
+			<result name="success">/sliderAndjmesalist.jsp</result>
+		</action>
+		<action name="pgtraveler" class="com.samtech.action.TravelersFilterAction"
+			method="paging">
+			<result name="pgresult" type="stream">
+				<param name="contentType">txt/html</param>
+				<param name="inputName">pgInputStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+	</package>
+	<package name="gtexample" extends="json-default">
+		<action name="etload" class="com.samtech.action.GtGridAction"
+			method="load">
+			<result type="json"></result>
+		</action>
+		<action name="jsontable" class="com.samtech.action.JqueryGridAction">
+			<result type="json"></result>
+		</action>
+	</package>
 </struts>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="windows-1252"?>
+
+<!--
+  GRANITE DATA SERVICES
+  Copyright (C) 2007-2008 ADEQUATE SYSTEMS SARL
+
+  This file is part of Granite Data Services.
+
+  Granite Data Services is free software; you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation; either version 3 of the License, or (at your
+  option) any later version.
+
+  Granite Data Services is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+  for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library; if not, see <http://www.gnu.org/licenses/>.
+-->
+
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+
+       xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+      default-autowire="byName"
+    default-lazy-init="false"><!-- xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd" -->
+
+    <bean id="etAirportService" class="com.samtech.hibernate3.impl.EtAirportServiceBean">
+    	<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+	 <bean id="baseService" class="com.samtech.hibernate3.impl.BaseDaoServiceBean">
+    	<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+	<!-- 
+    <bean id="transactionTemplate"
+        class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="jtaTransactionManager" />
+    </bean>
+    --> 
+        <!-- <property name="transactionManager">
+            <bean factory-bean="transactionManagerFactory" factory-method="getTransactionManager"/>
+        </property> -->
+    <!-- 
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="ejb3" />
+        <property name="persistenceXmlLocation"
+            value="classpath:META-INF/persistence-spring.xml" />
+    </bean>
+     -->
+
+<bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+         <!-- property name="persistenceUnitName" value="ejb3"/-->
+         <property name="persistenceXmlLocation"
+            value="classpath:META-INF/persistence-spring.xml" />
+        <property name="jpaVendorAdapter">
+            <bean
+                class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <!-- property name="database" value="SYBASE" /-->
+                <!-- property name="databasePlatform" value="com.csair.hibernate.dialect.Sybase15Dialect"/-->
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"/>
+                <property name="showSql" value="true" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- 
+        <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+         <property name="url" value="jdbc:jtds:Sybase://10.103.111.11:5000/et_dcs;charset=cp936" />
+        <property name="username" value="big_client" />
+        <property name="password" value="bc1234" />
+         -->
+        
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+         <property name="url" value="jdbc:mysql://localhost/etdcs" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+        
+    </bean>
+  <bean    class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    <!--bean id="transactionManager"
+        class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory"
+            ref="entityManagerFactory" />
+    </bean-->
+	<bean id="txManager"
+              class="org.springframework.orm.jpa.JpaTransactionManager">
+              <property name="entityManagerFactory"
+                     ref="entityManagerFactory" />
+       </bean>
+        <tx:advice id="txAdvice" transaction-manager="txManager">
+              <tx:attributes>
+                     <tx:method name="save*" propagation="REQUIRED" />
+                     <tx:method name="delete*" propagation="REQUIRED" />
+					 <tx:method name="create*" propagation="REQUIRED" />
+					 <tx:method name="modi*" propagation="REQUIRED" />
+					 <tx:method name="update*" propagation="REQUIRED" />
+              </tx:attributes>
+       </tx:advice>
+       <aop:config>
+    <aop:pointcut id="fooServiceOperation" expression="execution(* com.samtech.hibernate3.impl.EtAirportServiceBean.*(..))|| execution(* com.samtech.hibernate3.impl.BaseDaoServiceBean.*(..))"/>
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="fooServiceOperation"/>
+  </aop:config>
+       
+	<!--        
+    <bean id="jtaTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
+     -->
+	 <!-- 
+	 <context:annotation-config/>
+ -->
+<!-- SpringBean -->
+<!-- 
+<context:component-scan base-package="com.samtech.action"/>
+ -->
+</beans>

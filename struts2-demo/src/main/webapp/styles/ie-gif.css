@@ -1,0 +1,15 @@
+.dbx-handle {
+	background:url(../images/ietheme/sidep-handle.gif) no-repeat 0 0; 
+}
+a.dbx-toggle, a.dbx-toggle:visited {
+	background:url(../images/ietheme/sidep-toggle.gif) no-repeat;
+}
+.dbx-content {
+	background: url(../images/ietheme/sidep-bottom.gif) no-repeat 0 100%;
+}
+#nav {
+	background: url(../images/ietheme/content-top-bg.gif) no-repeat left top;
+}
+#footer {
+	background: url(../images/ietheme/content-bottom-bg.gif) no-repeat;
+}

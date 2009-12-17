@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+	<validators>
+		<field name="saveKey">
+		 <field-validator type="requiredstring">
+		 	<message key="saveKey.required"></message>
+		 </field-validator>
+		 <field-validator type="regex">
+		  	<param name="expression">([A-Z]{3})</param>
+		  	<message key="saveKey.regex"></message>
+		 </field-validator>
+		</field>
+		<field name="target.airportChBrief">
+		<field-validator type="requiredstring">
+		 	<message key="airportChBrief.required"></message>
+		 </field-validator>
+		</field>
+	</validators>

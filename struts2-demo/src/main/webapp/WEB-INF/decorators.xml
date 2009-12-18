@@ -15,6 +15,7 @@
         <pattern>/etload.action</pattern>
         <pattern>/pgairport.action</pattern>
         <pattern>/loginInfo.action</pattern>
+        <pattern>/login.action</pattern>
         <pattern>/jsontable.action</pattern>
         <pattern>/pgtraveler.action</pattern>
         <pattern>/tags/ui/ajax/*</pattern>

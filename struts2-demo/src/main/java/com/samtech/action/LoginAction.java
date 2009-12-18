@@ -42,9 +42,10 @@ public class LoginAction extends BaseDaoAction<SvcUserAccount> {
 				smap.put(LOGIN_KEY, Boolean.TRUE);
 				smap.put(USER_INFO_KEY, user);
 			}
+			this.logined=true;
 		} catch (LoginException e) {
 			this.addActionError(e.getMessage());
-			return SUCCESS;
+			return INPUT;//SUCCESS not ajax
 		}
 
 		return SUCCESS;

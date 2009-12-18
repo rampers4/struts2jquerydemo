@@ -26,7 +26,7 @@ var sidebar_left = new dbxGroup(
 
 	
 	);
-
+window["sidebar_left"]=sidebar_left;
 var sidebar_right = new dbxGroup(
 		'sidebar-right', 				// container ID [/-_a-zA-Z0-9/]
 		'vertical', 			// orientation ['vertical'|'horizontal'|'freeform'|'freeform-insert'|'confirm'|'confirm-insert']

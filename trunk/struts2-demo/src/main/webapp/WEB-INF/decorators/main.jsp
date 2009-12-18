@@ -119,5 +119,21 @@
      <hr class="hidden"/>
 	</div>
 </div><!-- end page -->
+<script type="text/javascript">
+function registerfrm(){
+	var logfrm=$('#loginfrm');
+	if(logfrm)
+	logfrm.ajaxForm({//target
+			success:function(data){
+			$('#login').replaceWith(data);
+			if(window["sidebar_left"])
+			window["sidebar_left"].refresh(false);
+			registerfrm();
+		  }
+			
+		});
+	}
+$(document).ready(registerfrm);
+</script>
 </body>
 </html>

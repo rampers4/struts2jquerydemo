@@ -1,9 +1,40 @@
-validator file search:(ActionAliasName is struts.xml action name attribute)
+validate file search:(ActionAliasName is struts.xml action name attribute)
 ActionClassName-validation.xml
 ActionClassName-ActionAliasName-validation.xml
+struts2 configure:
+configure constant:
+	struts.xml (recommended)
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	struts.properties key value
+	web.xml
+	<init-param>
+	 <param-name>struts.custom.i18n.resources</param-name>
+	 <param-value>MessageResources</param-value>
+	</init-param>
+configure bean see struts-default.xml
 
+
+configure package(namespace): 
+ abstract package not include action.
+ <package name="struts-default" abstract="true">
+  <!-- result-types interceptors etc.-->
+ </package>
+ extends :will extends another package interceptor and action etc. 
+ <package name="admin" extends="struts-default"><!-- another package name -->
+ </package>
+ configure namespace: find url use namespace/action,not found use not namespace to find action.
+ ex: url: http://hostname/webcontent/parentspace/subspace/DoBusiness.action is meet found  parentspace/subspace namespace ,action is DoBusiness
+ resut not start with "/" will find with namespace.
+ 
+configure include:
+<include file="struts-customer.xml">
+<include file="struts-finance.xml">
+ 
+ 
+ 
 control action extends ActionSupport (more helps implements Preparable, ServletRequestAware,ServletResponseAware)
-result type
+
+struts-default result type defined.
 <result-types>
             <result-type name="chain" class="com.opensymphony.xwork2.ActionChainResult"/>
             <result-type name="dispatcher" class="org.apache.struts2.dispatcher.ServletDispatcherResult" default="true"/>
@@ -16,3 +47,51 @@ result type
             <result-type name="xslt" class="org.apache.struts2.views.xslt.XSLTResult"/>
             <result-type name="plainText" class="org.apache.struts2.dispatcher.PlainTextResult" />
 </result-types>
+
+
+
+validate:
+client side(web browse) not support short-circuit validate?
+
+visitor validate:
+<validators>
+ <field name="user">
+   <field-validator type="visitor">
+     <param name="context">user_Context</param><!-- rule file context -->
+     <param name="appendPrefix">true</param>
+     <message>user: </message>
+   </field-validator>
+ </field>
+</validators> 
+
+User-user_Context-validation.xml
+<validators>
+ <field name="name"><!-- user.name -->
+   <field-validator type="requiredstring">
+     <param name="trim">true</param>
+     
+     <message> name required. </message>
+   </field-validator>
+ </field>
+</validators>
+
+i18n:(class file must extends ListResourceBundle and override getContents
+baseName_zh_CN.class
+baseName_zh_CN.properties
+baseName_zh.class
+baseName_zh.properties
+baseName.class
+baseName.properties
+
+find search rule:
+1)actionName_language_country.xxx
+2)parentName_language_country.xxx
+3)Interface_language_country.xxx
+4)modelDriven?
+5)package_language_country.xxx
+6)baseName_language_country.xxx
+
+i18n interceptor :
+param name:request_locale ,and will store to session key "WW_TRANS_I18N_LOCALE"
+
+

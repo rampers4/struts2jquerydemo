@@ -12,7 +12,9 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.configuration.xml.reload" value="false" />
-	<constant name="struts.custom.i18n.resources" value="globalMessages" />
+	<!-- constant name="struts.custom.i18n.resources" value="globalMessages" /-->
+	<constant name="struts.custom.i18n.resources" value="MessageResources"/>
+	<constant name="struts.ui.theme" value="simple"/>
 	<constant name="struts.action.extension" value="action,," />
 	<package name="default" extends="struts-default">
 		<default-action-ref name="struts2_demo" />

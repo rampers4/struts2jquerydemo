@@ -5,6 +5,7 @@
     <excludes>
         <pattern>/debug.jsp</pattern>
         <pattern>/styles/*</pattern>
+        <pattern>/*.html</pattern>
         <pattern>/scripts/*</pattern>
         <pattern>/images/*</pattern>
         <pattern>/dojo/*</pattern>

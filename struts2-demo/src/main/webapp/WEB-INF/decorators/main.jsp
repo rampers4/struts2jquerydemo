@@ -37,7 +37,7 @@
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
-
+<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh">
 <head>
 <title><decorator:title default="Struts Showcase" /></title>
@@ -49,7 +49,8 @@
 	rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript"	src="<s:url value='/scripts/dbx/dbx.js' />" ></script>
     <script type="text/javascript" src="<s:url value='/scripts/dbx/dbx-key.js' />"  ></script>
-    <decorator:head/>
+<sj:head compressed="false" useJqGridPlugin="false" jqueryui="false"  locale="zh-CN" defaultIndicator="myDefaultIndicator"/>
+<decorator:head/>
 <!--[if lt IE 7]>
 <link rel="stylesheet" href="<s:url value='/styles/ie-gif.css'/>" type="text/css" />
 <![endif]-->
@@ -85,11 +86,12 @@
 	                  <li><s:a action="gogtlist">jqgrid airport list</s:a></li>
 	                  <li><s:a action="gmesalist">gmesa airport list</s:a></li>
 	                  <li><s:a action="slidertablelist">slider traveler list</s:a></li>
+	                  <li><s:a action="showpicture">show pictures</s:a></li>
                  
                 </ul>
 	  </div>
 	</div>
-	 <s:action var="logininfo" name="loginInfo" namespace="/" executeResult="true" />
+	 <s:action var="logininfo" name="loginInfo" namespace="/" executeResult="true" ignoreContextParams="true"/>
 </div><!-- end sidebar-left -->
 	<div id="left-col">
 	<div id="nav"></div>
@@ -132,7 +134,7 @@ function registerfrm(){
 		  }
 			
 		});
-	}
+	};
 $(document).ready(registerfrm);
 </script>
 </body>

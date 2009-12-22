@@ -1,6 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
- <sj:head compressed="false" useJqGridPlugin="true" jqueryui="true"  locale="zh-CN" defaultIndicator="myDefaultIndicator"/>
 
 <div id="login" class="dbx-box"
 	style="position: relative; display: block;">
@@ -16,7 +15,11 @@
 
 	<table>
 		<tr>
-			<td align="left" style="font: bold; color: red"><s:fielderror />
+			<td align="left" style="font: bold; color: red">
+			<s:fielderror >
+			<s:param>username</s:param>
+			<s:param>password</s:param>
+			</s:fielderror>
 			<s:actionerror /> <s:actionmessage /></td>
 		</tr>
 	</table>

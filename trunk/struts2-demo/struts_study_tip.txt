@@ -94,4 +94,6 @@ find search rule:
 i18n interceptor :
 param name:request_locale ,and will store to session key "WW_TRANS_I18N_LOCALE"
 
-
+<s:set value="#p" name="xxx" scope="session"/><!-- put #p to session["xxx"] -->
+jsp 2.0
+${sessionScope.xxx.propertyName1}

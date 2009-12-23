@@ -16,6 +16,8 @@
 	<constant name="struts.custom.i18n.resources" value="MessageResources"/>
 	<constant name="struts.ui.theme" value="simple"/>
 	<constant name="struts.action.extension" value="action,," />
+	<constant name="struts.action.excludePattern" value="/cometd/.*"></constant>
+	
 	<package name="default" extends="struts-default">
 		<default-action-ref name="struts2_demo" />
 		<action name="struts2_demo">

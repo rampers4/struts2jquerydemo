@@ -9,6 +9,7 @@
         <pattern>/scripts/*</pattern>
         <pattern>/images/*</pattern>
         <pattern>/dojo/*</pattern>
+        <pattern>/cometd/*</pattern>
         <pattern>/struts/*</pattern>
         <pattern>/ajax/AjaxResult*</pattern>
         <pattern>/AjaxTest.action</pattern>
@@ -20,8 +21,6 @@
         <pattern>/jsontable.action</pattern>
         <pattern>/pgtraveler.action</pattern>
         <pattern>/tags/ui/ajax/*</pattern>
-        <pattern>/chat/ajax/*</pattern>
-        <pattern>/hangman/ajax/*</pattern>
         <pattern>/nodecorate/*</pattern>
     </excludes>
 

@@ -25,7 +25,10 @@ img {
 	}
 .tbl .inp{
 	text-align: left;
-}	
+}
+.jcarousel-item div#fancy_close {
+	background: url('../images/ietheme/fancy_closebox.png') top left no-repeat;
+}
 /* templates/default/style_fallback.css  */
 /* This is the templates/default/style_fallback.css file.
    It emits CSS rules that all templates should have.

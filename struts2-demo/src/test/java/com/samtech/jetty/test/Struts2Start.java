@@ -1,16 +1,24 @@
 package com.samtech.jetty.test;
 
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.bio.SocketConnector;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
 
-import org.mortbay.jetty.Connector;
+
+/*import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
+import org.mortbay.jetty.ajp.Ajp13SocketConnector;
 import org.mortbay.jetty.bio.SocketConnector;
-import org.mortbay.jetty.webapp.WebAppContext;
+import org.mortbay.jetty.webapp.WebAppContext;*/
 
 public class Struts2Start {
 
 	public static void main(String[] args) throws Exception {
 		Server server = new Server();
-		SocketConnector connector = new SocketConnector();
+		
+		SocketConnector connector =new SocketConnector();// new Ajp13SocketConnector();
 		
 		// Set some timeout options to make debugging easier.
 		connector.setMaxIdleTime(1000 * 60 * 60);
@@ -38,10 +46,12 @@ public class Struts2Start {
 		// mBeanContainer.start();
 		
 		
-		/*ServletHolder holder=new ServletHolder(new JspServlet());
+		/*
+		ServletHolder holder=new ServletHolder(new JspServlet());
         bb.addServlet(holder, "*.jsp");
         */
-		server.addHandler(bb);
+		server.setHandler(bb);
+		//server.addHandler(bb);
 
 		try {
 			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");

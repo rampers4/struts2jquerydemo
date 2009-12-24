@@ -5,6 +5,7 @@
 	  <param-name>contextConfigLocation</param-name>
 	  <param-value>/WEB-INF/conf/applicationContext.xml</param-value>
  </context-param>
+ 
 	<listener>
 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -41,7 +42,12 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-
+    <!-- 
+     <filter>
+        <filter-name>cross-origin</filter-name>
+        <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+    </filter>
+ 	-->
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -58,13 +64,18 @@
         <filter-name>struts</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+    <!-- 
+    <filter-mapping>
+        <filter-name>cross-origin</filter-name>
+        <url-pattern>/cometd/*</url-pattern>
+    </filter-mapping>
+     -->
      <servlet>
         <servlet-name>cometd</servlet-name>
         <servlet-class>org.cometd.server.continuation.ContinuationCometdServlet</servlet-class>
         <init-param>
             <param-name>timeout</param-name>
-            <param-value>30000</param-value>
+            <param-value>15000</param-value>
         </init-param>
         <init-param>
             <param-name>interval</param-name>
@@ -82,9 +93,18 @@
             <param-name>logLevel</param-name>
             <param-value>0</param-value>
         </init-param>
+        <init-param>
+		 	<param-name>refsThreshold</param-name>
+		 	<param-value>1000</param-value>
+ 		</init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
+	<servlet>
+        <servlet-name>initializer</servlet-name>
+        <servlet-class>com.samtech.ajax.BayeuxInitializer</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>cometd</servlet-name>
         <url-pattern>/cometd/*</url-pattern>

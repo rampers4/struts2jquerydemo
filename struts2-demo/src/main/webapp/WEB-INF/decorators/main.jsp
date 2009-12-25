@@ -86,6 +86,7 @@
 	                  <li><s:a action="gogtlist">jqgrid airport list</s:a></li>
 	                  <li><s:a action="gmesalist">gmesa airport list</s:a></li>
 	                  <li><s:a action="slidertablelist">slider traveler list</s:a></li>
+	                  <li><s:a action="keywordslist">keyword filter</s:a></li>
 	                  <li><s:a action="showpicture">show pictures</s:a></li>
                   	  <li><a href="<%= request.getContextPath() %>/chat.jsp">chat</a></li>
                 </ul>

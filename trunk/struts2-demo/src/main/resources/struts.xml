@@ -91,6 +91,17 @@
 				<param name="bufferSize">1024</param>
 			</result>
 		</action>
+		<action name="keywordslist" class="com.samtech.action.TravelersKeywordsAction">
+			<result name="success">/searchkeyslist.jsp</result>
+		</action>
+		<action name="keywordstraveler" class="com.samtech.action.TravelersKeywordsAction"
+			method="paging">
+			<result name="pgresult" type="stream">
+				<param name="contentType">txt/html</param>
+				<param name="inputName">pgInputStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
 	</package>
 	<package name="gtexample" extends="json-default">
 		<action name="etload" class="com.samtech.action.GtGridAction"

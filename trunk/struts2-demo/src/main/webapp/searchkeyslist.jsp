@@ -6,6 +6,7 @@
      <sj:head compressed="false" useJqGridPlugin="true" jqueryui="true"  locale="zh-CN" defaultIndicator="myDefaultIndicator"/>
      <link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/styles/jmesa.css" media="all"/>
      <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery.jmesa.js"></script>
+     <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery.highlight-3.js"></script>
      </head>
   
 	
@@ -54,6 +55,13 @@ var parameterString = $.jmesa.createParameterStringForLimit(tbl_id);
 parameterString=parameterString+"&"+tbl_id+"_keywords="+keywords;
 $.get('${pageContext.request.contextPath}/keywordstraveler.action?ajax=true&' + parameterString, function(data) {
 $("#traveler_container").html(data);
+var k=$("#keyword")[0].value;
+if(k!=""){
+	var keys = k.split(' ');
+	for(var i=0;i<keys.length;i++){
+		$("#traveler_container").highlight(keys[i]);
+	}
+}
 });
 return true;
 } 
@@ -62,6 +70,13 @@ function onInvokeAction(id) {
     var parameterString = $.jmesa.createParameterStringForLimit(id);
     $.get('${pageContext.request.contextPath}/keywordstraveler.action?ajax=true&' + parameterString, function(data) {
     $("#traveler_container").html(data);
+    var k=$("#keyword")[0].value;
+    if(k!=""){
+    	var keys = k.split(' ');
+    	for(var i=0;i<keys.length;i++){
+    		$("#traveler_container").highlight(keys[i]);
+    	}
+    }
 });
 }
 

@@ -12,7 +12,9 @@ p.break {
 img {
    border:none;
 }
-
+span.highlight{
+	color:red;
+}
 .tbl{
  border: none;
  padding: 2px;

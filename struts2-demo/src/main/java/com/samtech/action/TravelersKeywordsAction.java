@@ -5,12 +5,10 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.Format;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,11 +36,12 @@ import org.jmesa.view.html.component.HtmlRow;
 import org.jmesa.view.html.component.HtmlTable;
 import org.jmesa.view.html.event.MouseRowEvent;
 
-import com.csair.domains.etdcs.TargetCustomerTicket;
+
+import com.csair.domains.etdcs.CustomerTicket;
 import com.samtech.hibernate3.EtAirportServiceInf;
 import com.samtech.hibernate3.PagingAndSorting;
 
-public class TravelersKeywordsAction extends BaseDaoAction<TargetCustomerTicket>
+public class TravelersKeywordsAction extends BaseDaoAction<CustomerTicket>
 		implements ServletRequestAware {
 
 	/**
@@ -52,7 +51,7 @@ public class TravelersKeywordsAction extends BaseDaoAction<TargetCustomerTicket>
 	private String id;
 	private String airportName;
 	private EtAirportServiceInf etAirportService;
-	private List<TargetCustomerTicket> etairports;
+	private List<CustomerTicket> etairports;
 	private HttpServletRequest request;
 	private InputStream pgtableResult;
 
@@ -77,6 +76,7 @@ public class TravelersKeywordsAction extends BaseDaoAction<TargetCustomerTicket>
 		String tblid = "traveler_tbl";
 
 		TableFacade tableFacade = new TableFacadeImpl(tblid, request);
+		
 		String keywords = request.getParameter(tblid + "_keywords");
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -104,7 +104,7 @@ public class TravelersKeywordsAction extends BaseDaoAction<TargetCustomerTicket>
 		Map<String, Object> param = new HashMap(2);
 		PagingAndSorting pg = new PagingAndSorting();
 		etairports=Collections.EMPTY_LIST;
-		String sql = "select o from " + TargetCustomerTicket.class.getName()
+		String sql = "select o from " + CustomerTicket.class.getName()
 				+ " as o ";
 		if (keywords != null && keywords.trim().length()>0) {
 			Map<String, Float> properties=new HashMap<String,Float>(3);
@@ -112,7 +112,8 @@ public class TravelersKeywordsAction extends BaseDaoAction<TargetCustomerTicket>
 			properties.put("psgName", 0.8f);
 			properties.put("certificateId", 0.6f);
 			properties.put("certificateType", 0.5f);
-			etairports = this.baseService.searchByKeywords(TargetCustomerTicket.class, properties, keywords);
+			this.baseService.updateClassIndexed(CustomerTicket.class);
+			etairports = this.baseService.searchByKeywords(CustomerTicket.class, properties, keywords);
 		}
 		tableFacade.setTotalRows(etairports.size());
 		tableFacade.setMaxRowsIncrements(10, 20, 50);

@@ -59,7 +59,7 @@ var k=$("#keyword")[0].value;
 if(k!=""){
 	var keys = k.split(' ');
 	for(var i=0;i<keys.length;i++){
-		$("#traveler_container").highlight(keys[i]);
+		//$("#traveler_container").highlight(keys[i]);
 	}
 }
 });
@@ -74,7 +74,7 @@ function onInvokeAction(id) {
     if(k!=""){
     	var keys = k.split(' ');
     	for(var i=0;i<keys.length;i++){
-    		$("#traveler_container").highlight(keys[i]);
+    		//$("#traveler_container").highlight(keys[i]);
     	}
     }
 });

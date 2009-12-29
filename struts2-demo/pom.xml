@@ -121,6 +121,11 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.10</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.0.0.RELEASE</version>
+		</dependency>
 		<!--
 			<dependency> <groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId> <version>2.5.6</version>
@@ -309,6 +314,8 @@
 			<version>1.0.1</version>
 			<artifactId>cometd-java-server</artifactId>
 		</dependency>
+		
+		
 		
 		
 	</dependencies>

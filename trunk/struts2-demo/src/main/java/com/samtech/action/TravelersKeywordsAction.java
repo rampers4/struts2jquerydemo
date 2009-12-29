@@ -1,8 +1,10 @@
 package com.samtech.action;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -18,7 +20,29 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.KeywordAnalyzer;
+import org.apache.lucene.analysis.StopAnalyzer;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.Field.Index;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.MultiTermQuery;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.highlight.Highlighter;
+
+import org.apache.lucene.search.highlight.QueryScorer;
+
+import org.apache.lucene.search.highlight.Scorer;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
+import org.apache.lucene.search.highlight.WeightedTerm;
+
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.hibernate.search.annotations.Store;
+import org.hibernate.search.impl.SearchFactoryImpl;
 import org.jmesa.facade.TableFacade;
 import org.jmesa.facade.TableFacadeImpl;
 import org.jmesa.limit.Filter;
@@ -155,9 +179,46 @@ public class TravelersKeywordsAction extends BaseDaoAction<CustomerTicket>
 		try {
 			inputStream = new ByteArrayInputStream(buildTable.getBytes("UTF8"));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		String[] stopWords=StopAnalyzer.ENGLISH_STOP_WORDS;
+		String[] st=new String[stopWords.length+4];
+		System.arraycopy(stopWords, 0, st, 0, stopWords.length);
+		int kk=stopWords.length;
+		st[kk]="table";
+		st[kk+1]="script";
+		st[kk+2]="tr";
+		st[kk+3]="td";
+		StandardAnalyzer analyzer=new StandardAnalyzer(st);
+		//QueryParser queryParse = new QueryParser("contents", analyzer);     //   构造QueryParser，解析用户输入的检索关键字
+		   try {
+			//Query query = queryParse.parse(keywords);
+			
+			//Scorer fragmentScorer=new QueryScorer(query);
+			   String[] keywords2 = keywords.split(" ");
+			   
+			   WeightedTerm [] terms=new WeightedTerm[keywords2.length];
+			   for(int i=0;i<keywords2.length;i++){
+				   terms[i]=new WeightedTerm((keywords2.length-i),keywords2[i]);
+			   }
+			   QueryScorer queryScorer = new QueryScorer(terms);
+			Highlighter highlighter = new Highlighter(new SimpleHTMLFormatter("<span class='highlight'>","</span>"), queryScorer);
+			TokenStream tokenStream=null;
+			tokenStream=analyzer.tokenStream("contents", new StringReader(buildTable));
+			String[] bestFragment =highlighter.getBestFragments(tokenStream, buildTable, 120);// highlighter.getBestFragment(analyzer, "contents", buildTable);
+			System.out.println("==========================");
+			if(bestFragment!=null && bestFragment.length>0){
+				for(int i=0;i<bestFragment.length;i++)
+				System.out.println(bestFragment[i]);
+				inputStream = new ByteArrayInputStream(bestFragment[0].getBytes("UTF8"));
+			}
+			System.out.println("==========================");
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		} 
+		
 		this.setPgInputStream(inputStream);
 		return "pgresult";
 	}

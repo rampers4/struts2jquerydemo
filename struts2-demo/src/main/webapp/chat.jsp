@@ -26,7 +26,7 @@
   <div id="chat_right">
     <div id="chat"></div>
     <div id="msg">
-      <input id="phrase" type="text" size="80" maxlength="85"/><input id="sendButton" type="button" value="send"/>
+      <input id="phrase" type="text" size="60" maxlength="85"/><input id="sendButton" type="button" value="send"/>
     </div>
   </div>
  </div>
@@ -88,17 +88,7 @@
 		            }
 
 		            var cometdURL = location.protocol + "//" + location.host + config.contextPath + "/cometd";
-		            /*var useServer = $('#useServer').attr('checked');
-		            if (useServer)
-		            {
-		                var altServer = $('#altServer').val();
-		                if (altServer.length == 0)
-		                {
-		                    alert('Please enter a server address');
-		                    return;
-		                }
-		                cometdURL = altServer;
-		            }*/
+		            
 
 		            $.cometd.configure({
 		                url: cometdURL,
@@ -124,10 +114,7 @@
 		            });
 		            $.cometd.disconnect();
 
-		            //$('#join').show();
-		           // $('#joined').hide();
-		           // $('#username').focus();
-		           // $('#members').empty();
+		           
 		            _username = null;
 		            _lastUser = null;
 		            _disconnecting = true;
@@ -204,9 +191,9 @@
 		            var list = '';
 		            $.each(message.data, function()
 		            {
-		                list += this + '<br />';
+		                list += this + '<br/>';
 		            });
-		            $('#members').html(list);
+		            $('#msg>.dbx-content').html(list);
 		        };
 
 		        function _unsubscribe()
@@ -311,12 +298,12 @@
 		                }, 0);
 		            }
 		        }*/
-
+				var thiz=this;
 		        $(window).unload(function()
 		        {
-		            $.cometd.reload();
-		            if(!_disconnecting)
-		            this.leave();
+		             //$.cometd.reload();
+		            //if(!_disconnecting)
+		            	thiz.leave();
 		            // Save the application state only if the user was chatting
 		            /*if (_wasConnected && _username)
 		            {

@@ -69,12 +69,7 @@
 			<version>${struts2.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		<!--
-			<dependency> <groupId>org.apache.struts</groupId>
-			<artifactId>struts2-rest-plugin</artifactId>
-			<version>${struts2.version}</version> <scope>compile</scope>
-			</dependency>
-		-->
+		
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-sitemesh-plugin</artifactId>
@@ -126,24 +121,12 @@
 			<artifactId>spring-web</artifactId>
 			<version>3.0.0.RELEASE</version>
 		</dependency>
-		<!--
-			<dependency> <groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId> <version>2.5.6</version>
-			<scope>compile</scope> </dependency> <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId> <version>2.5.6</version>
-			<scope>compile</scope> </dependency>
-		-->
 		<dependency>
-			<groupId>aspectj</groupId>
+			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.5.4</version>
 		</dependency>
-		<!-- dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-struts</artifactId>
-			<version>3.0.0.RELEASE</version>
-		</dependency-->
+		
 		<dependency>
 			<groupId>com.jgeppert.struts2.jquery</groupId>
 			<artifactId>struts2-jquery-plugin</artifactId>
@@ -314,9 +297,22 @@
 			<version>1.0.1</version>
 			<artifactId>cometd-java-server</artifactId>
 		</dependency>
-		
-		
-		
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.atmosphere</groupId>
+			<artifactId>atmosphere-bayeux</artifactId>
+			<version>0.4.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.cometd.java</groupId>
+					<artifactId>cometd-java-server</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		
 	</dependencies>
 </project>

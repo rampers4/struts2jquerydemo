@@ -5,11 +5,17 @@
 	  <param-name>contextConfigLocation</param-name>
 	  <param-value>/WEB-INF/conf/applicationContext.xml</param-value>
  </context-param>
- 
+ 	<context-param>
+        <param-name>org.mortbay.jetty.servlet.ManagedAttributes</param-name>
+        <param-value>org.cometd.bayeux</param-value>
+    </context-param>
+ 	
 	<listener>
 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    
+    <!-- listener>
+	<listener-class>com.samtech.ajax.BayeuxServiceListener</listener-class>
+    </listener-->
     <filter>
         <filter-name>struts-cleanup</filter-name>
         <filter-class>
@@ -42,12 +48,7 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-    <!-- 
-     <filter>
-        <filter-name>cross-origin</filter-name>
-        <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
-    </filter>
- 	-->
+   
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -73,6 +74,8 @@
      <servlet>
         <servlet-name>cometd</servlet-name>
         <servlet-class>org.cometd.server.continuation.ContinuationCometdServlet</servlet-class>
+        <!-- servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class-->
+        
         <init-param>
             <param-name>timeout</param-name>
             <param-value>15000</param-value>
@@ -97,6 +100,7 @@
 		 	<param-name>refsThreshold</param-name>
 		 	<param-value>1000</param-value>
  		</init-param>
+ 		
         <load-on-startup>1</load-on-startup>
     </servlet>
 	<servlet>
